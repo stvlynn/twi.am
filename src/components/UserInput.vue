@@ -22,8 +22,9 @@ const handleSubmit = () => {
         <input
           v-model="userId"
           type="text"
-          class="flex-1 px-3 py-2 font-mono focus:outline-none"
+          class="flex-1 px-3 py-2 font-mono focus:outline-none bg-white text-gray-900 disabled:bg-gray-50 disabled:text-gray-500"
           placeholder="Twitter ID"
+          :disabled="$attrs.disabled"
           @keyup.enter="handleSubmit"
         />
       </div>

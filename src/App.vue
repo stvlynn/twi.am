@@ -91,7 +91,7 @@ const analyzeMBTI = async (userId: string) => {
     <GoogleAnalytics />
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl font-mono text-center mb-8">Twitter MBTI Receipt</h1>
-      <UserInput @analyze="analyzeMBTI" />
+      <UserInput @analyze="analyzeMBTI" :disabled="loading" />
       <Receipt
         :loading="loading"
         :data="mbtiData"
