@@ -17,7 +17,8 @@ import { getShareUrl } from '../utils/share';
 import { computed } from 'vue';
 
 const props = defineProps<{
-  data?: MBTIResponse['data']['outputs']
+  data?: MBTIResponse['data']['outputs'];
+  userId: string;
 }>();
 
 const show = computed(() => !!props.data?.mbti);
@@ -25,14 +26,14 @@ const show = computed(() => !!props.data?.mbti);
 const handleShare = async () => {
   if (!props.data) return;
   
-  const shareUrl = getShareUrl(props.data);
+  const shareUrl = getShareUrl(props.data, props.userId);
   
   try {
     if (navigator.share) {
       // 移动设备使用原生分享
       await navigator.share({
         title: 'My Twitter MBTI Result',
-        text: `Check out my Twitter MBTI personality type: ${props.data.mbti}!`,
+        text: `Check out @${props.userId}'s Twitter MBTI personality type: ${props.data.mbti}!`,
         url: shareUrl
       });
     } else {

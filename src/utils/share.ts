@@ -1,21 +1,29 @@
 import type { MBTIResponse } from '../types/mbti';
 
-export function encodeData(data: MBTIResponse['data']['outputs']) {
+interface ShareData {
+  userId: string;
+  outputs: MBTIResponse['data']['outputs'];
+}
+
+export function encodeData(data: MBTIResponse['data']['outputs'], userId: string) {
   if (!data) return '';
-  // 只编码需要的字段
-  const shareData = {
-    mbti: data.mbti,
-    IE_report: data.IE_report,
-    SN_report: data.SN_report,
-    TF_report: data.TF_report,
-    JP_report: data.JP_report,
-    celebrity: data.celebrity,
-    celebrity_report: data.celebrity_report
+  // 包含用户ID和分析结果
+  const shareData: ShareData = {
+    userId,
+    outputs: {
+      mbti: data.mbti,
+      IE_report: data.IE_report,
+      SN_report: data.SN_report,
+      TF_report: data.TF_report,
+      JP_report: data.JP_report,
+      celebrity: data.celebrity,
+      celebrity_report: data.celebrity_report
+    }
   };
   return btoa(encodeURIComponent(JSON.stringify(shareData)));
 }
 
-export function decodeData(encoded: string): MBTIResponse['data']['outputs'] | null {
+export function decodeData(encoded: string): ShareData | null {
   try {
     const decoded = decodeURIComponent(atob(encoded));
     return JSON.parse(decoded);
@@ -25,9 +33,9 @@ export function decodeData(encoded: string): MBTIResponse['data']['outputs'] | n
   }
 }
 
-export function getShareUrl(data: MBTIResponse['data']['outputs']) {
+export function getShareUrl(data: MBTIResponse['data']['outputs'], userId: string) {
   const baseUrl = window.location.origin + window.location.pathname;
-  const encoded = encodeData(data);
+  const encoded = encodeData(data, userId);
   return encoded ? `${baseUrl}?data=${encoded}` : baseUrl;
 }
 
