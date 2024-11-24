@@ -90,7 +90,7 @@ const analyzeMBTI = async (userId: string) => {
   <div class="min-h-screen bg-gray-100 py-12 px-4">
     <GoogleAnalytics />
     <div class="max-w-4xl mx-auto">
-      <h1 class="text-4xl font-mono text-center mb-8">Twitter MBTI Receipt</h1>
+      <h1 class="text-4xl dot-matrix text-center mb-8">Twitter MBTI Receipt</h1>
       <UserInput @analyze="analyzeMBTI" :disabled="loading" />
       <Receipt
         :loading="loading"
@@ -112,5 +112,14 @@ const analyzeMBTI = async (userId: string) => {
 </template>
 
 <style>
+@font-face {
+  font-family: 'DotMatrix';
+  src: url('./assets/fonts/DOTMATRI.TTF') format('truetype');
+}
+
+.dot-matrix {
+  font-family: 'DotMatrix', monospace;
+}
+
 @import './style.css';
 </style>
