@@ -25,10 +25,11 @@ Deploy on Vercel:
 
 Set up the following environment variables:
 
-|Varriable|Default Value|
-|-|-|
-|`VITE_DIFY_API_URL`|https://api.dify.ai/v1/workflows/run|
-|`VITE_DIFY_API_KEY`| |
+|Variable|Default Value|Description|
+|-|-|-|
+|`VITE_DIFY_API_URL`|https://api.dify.ai/v1/workflows/run|Dify API endpoint|
+|`VITE_DIFY_API_KEY`| |Your Dify API key|
+|`VITE_GA_ID`| |Google Analytics measurement ID (optional)|
 
 ### Backend
 

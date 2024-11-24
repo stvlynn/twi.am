@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import axios from 'axios';
 import UserInput from './components/UserInput.vue';
 import Receipt from './components/Receipt.vue';
+import GoogleAnalytics from './components/GoogleAnalytics.vue';
 import type { MBTIResponse, ErrorState } from './types/mbti.ts';
 
 const loading = ref(false);
@@ -87,6 +88,7 @@ const analyzeMBTI = async (userId: string) => {
 
 <template>
   <div class="min-h-screen bg-gray-100 py-12 px-4">
+    <GoogleAnalytics />
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl font-mono text-center mb-8">Twitter MBTI Receipt</h1>
       <UserInput @analyze="analyzeMBTI" />
