@@ -96,6 +96,15 @@ const analyzeMBTI = async (userId: string) => {
         :userId="currentUserId"
         :error="error"
       />
+      
+      <div class="flex justify-center items-center gap-4 mt-8">
+        <a href="https://github.com/stvlynn/twi.am" target="_blank" rel="noopener noreferrer">
+          <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/stvlynn/twi.am?style=flat&logo=github">
+        </a>
+        <a href="https://twitter.com/stv_lynn" target="_blank" rel="noopener noreferrer">
+          <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/stv_lynn">
+        </a>
+      </div>
     </div>
   </div>
 </template>
