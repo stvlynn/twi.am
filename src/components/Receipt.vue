@@ -57,8 +57,14 @@ const orderNumber = computed(() => {
 
     <!-- Customer Info -->
     <div class="mb-6 border-b border-dashed border-black pb-4">
-      <p class="font-bold">CUSTOMER ID:</p>
-      <p class="ml-4">@{{ userId }}</p>
+      <div class="flex justify-between items-center">
+        <span class="font-bold">CUSTOMER ID:</span>
+        <span>@{{ userId }}</span>
+      </div>
+      <div class="flex justify-between items-center mt-1">
+        <span class="font-bold">CASHIER:</span>
+        <span>twi.am</span>
+      </div>
     </div>
 
     <!-- Loading State -->
@@ -81,7 +87,7 @@ const orderNumber = computed(() => {
     <template v-else-if="data">
       <!-- MBTI Type -->
       <div class="text-center border-b-2 border-black pb-4 mb-6">
-        <p class="text-3xl font-bold">{{ data.mbti }}</p>
+        <p class="text-3xl font-bold dot-matrix">{{ data.mbti }}</p>
         <p class="text-sm mt-2">YOUR PERSONALITY TYPE</p>
       </div>
 
@@ -128,6 +134,11 @@ const orderNumber = computed(() => {
 </template>
 
 <style scoped>
+@font-face {
+  font-family: 'DotMatrix';
+  src: url('../assets/fonts/DOTMATRI.TTF') format('truetype');
+}
+
 @keyframes loading {
   from {
     width: 0%;
@@ -135,5 +146,9 @@ const orderNumber = computed(() => {
   to {
     width: 100%;
   }
+}
+
+.dot-matrix {
+  font-family: 'DotMatrix', monospace;
 }
 </style>

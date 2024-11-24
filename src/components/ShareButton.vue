@@ -2,7 +2,7 @@
   <button
     v-if="show"
     @click="handleShare"
-    class="w-full max-w-md mx-auto mt-4 bg-blue-600 text-white py-2 rounded-lg font-mono hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+    class="w-full max-w-md mx-auto mt-4 bg-black text-white py-2 rounded-lg font-mono hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
   >
     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
       <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" />
