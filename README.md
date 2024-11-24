@@ -39,4 +39,4 @@ You should also get an API Key from crawlbase and set it in the DSL. Name it `to
 
 ## License
 
-MIT License
+[AGPL-3.0](./LICENSE)
