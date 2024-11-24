@@ -19,6 +19,7 @@ The app uses [Dify.ai](https://dify.ai) to scrape and analyze the Twitter profil
 ### Frontend
 
 Deploy on Vercel:
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fstvlynn%2Ftwitter_receipt)
 
 Set up the following environment variables:
 
