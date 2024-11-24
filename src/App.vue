@@ -1,15 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import UserInput from './components/UserInput.vue';
 import Receipt from './components/Receipt.vue';
 import GoogleAnalytics from './components/GoogleAnalytics.vue';
+import ShareButton from './components/ShareButton.vue';
+import { getDataFromUrl, decodeData } from './utils/share';
 import type { MBTIResponse, ErrorState } from './types/mbti.ts';
 
 const loading = ref(false);
 const mbtiData = ref<MBTIResponse['data']['outputs']>();
 const currentUserId = ref('');
 const error = ref<ErrorState | null>(null);
+
+onMounted(() => {
+  // 检查URL中是否有分享数据
+  const shareData = getDataFromUrl();
+  if (shareData) {
+    const decodedData = decodeData(shareData);
+    if (decodedData) {
+      mbtiData.value = decodedData.outputs;
+      currentUserId.value = decodedData.userId;
+    }
+  }
+});
 
 const analyzeMBTI = async (userId: string) => {
   loading.value = true;
@@ -98,7 +112,7 @@ const analyzeMBTI = async (userId: string) => {
         :userId="currentUserId"
         :error="error"
       />
-      
+      <ShareButton :data="mbtiData" :userId="currentUserId" />
       <div class="flex justify-center items-center gap-4 mt-8">
         <a href="https://github.com/stvlynn/twi.am" target="_blank" rel="noopener noreferrer">
           <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/stvlynn/twi.am?style=flat&logo=github">
