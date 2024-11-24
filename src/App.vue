@@ -43,7 +43,7 @@ const analyzeMBTI = async (userId: string) => {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json'
       },
-      timeout: 120000 // 120 seconds timeout
+      timeout: 180000 // 180 seconds timeout
     });
 
     // 检查响应数据
