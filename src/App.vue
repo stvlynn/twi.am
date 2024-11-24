@@ -112,6 +112,8 @@ const analyzeMBTI = async (userId: string) => {
 </template>
 
 <style>
+@import './style.css';
+
 @font-face {
   font-family: 'DotMatrix';
   src: url('./assets/fonts/DOTMATRI.TTF') format('truetype');
@@ -120,6 +122,4 @@ const analyzeMBTI = async (userId: string) => {
 .dot-matrix {
   font-family: 'DotMatrix', monospace;
 }
-
-@import './style.css';
 </style>
