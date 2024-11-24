@@ -1,0 +1,521 @@
+app:
+  description: ''
+  icon: 🧾
+  icon_background: '#D5F5F6'
+  mode: workflow
+  name: Twitter Receipt
+  use_icon_as_answer_icon: false
+kind: app
+version: 0.1.3
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: b98cd52e-fdc9-4fe9-ad88-6f11a15ecd64
+    name: token
+    selector: []
+    value: ''
+    value_type: secret
+  - description: ''
+    id: a2e75343-7669-42b6-87f6-b4efe3d5bc5f
+    name: token_bak
+    selector: []
+    value: ''
+    value_type: secret
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: code
+      id: 1732420145745-source-1732420268481-target
+      source: '1732420145745'
+      sourceHandle: source
+      target: '1732420268481'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: http-request
+        targetType: llm
+      id: 1732420294315-source-1732420315223-target
+      source: '1732420294315'
+      sourceHandle: source
+      target: '1732420315223'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: code
+        targetType: if-else
+      id: 1732420268481-source-1732420883675-target
+      source: '1732420268481'
+      sourceHandle: source
+      target: '1732420883675'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1732420883675-true-1732420294315-target
+      source: '1732420883675'
+      sourceHandle: 'true'
+      target: '1732420294315'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: 1732420883675-false-1732420916169-target
+      source: '1732420883675'
+      sourceHandle: 'false'
+      target: '1732420916169'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: parameter-extractor
+      id: 1732420315223-source-1732421779593-target
+      source: '1732420315223'
+      sourceHandle: source
+      target: '1732421779593'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        sourceType: parameter-extractor
+        targetType: end
+      id: 1732421779593-source-1732421770134-target
+      source: '1732421779593'
+      sourceHandle: source
+      target: '1732421770134'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - label: user_id
+          max_length: 48
+          options: []
+          required: true
+          type: text-input
+          variable: user_id
+        - label: lang
+          max_length: 48
+          options: []
+          required: true
+          type: text-input
+          variable: lang
+      height: 116
+      id: '1732420145745'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "def main(user_id: str) -> dict:\n    import re\n    # 检查是否只包含大小写字母、数字和下划线\n\
+          \    pattern = r'^[a-zA-Z0-9_]+$'\n    if not re.match(pattern, user_id):\n\
+          \        return {\n            \"result\": \"wrong_id\"\n        }\n   \
+          \ return {\n        \"result\": \"https://twitter.com/\" + user_id\n   \
+          \ }"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Code
+        type: code
+        variables:
+        - value_selector:
+          - '1732420145745'
+          - user_id
+          variable: user_id
+      height: 54
+      id: '1732420268481'
+      position:
+        x: 384
+        y: 282
+      positionAbsolute:
+        x: 384
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: 'scraper:twitter-profile
+
+          format:html
+
+          url:{{#1732420268481.result#}}
+
+          token:{{#env.token_bak#}}'
+        selected: false
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP Request
+        type: http-request
+        url: https://api.crawlbase.com/
+        variables: []
+      height: 94
+      id: '1732420294315'
+      position:
+        x: 988
+        y: 282
+      positionAbsolute:
+        x: 988
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1732420294315'
+          - body
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemini-pro
+          provider: google
+        prompt_template:
+        - id: cda223d1-e530-45e2-962a-21e90d98a5c3
+          role: system
+          text: '# 用户推文
+
+            {{#context#}}
+
+
+            # 执行步骤
+
+            从用户推文中获取近期推文，并且结合简介内容推断用户可能的喜好/职业/习惯
+
+            推断用户的MBTI，判断标准如下：
+
+            I/E:
+
+            I: Introverted individuals prefer solitary activities and get exhausted
+            by social interaction. They tend to be quite sensitive to external stimulation
+            (e.g. sound, sight or smell) in general. / E: Extraverted individuals
+            prefer group activities and get energized by social interaction. They
+            tend to be more enthusiastic and more easily excited than Introverts.
+
+            S/N:
+
+            S: Observant individuals are highly practical, pragmatic and down-to-earth.
+            They tend to have strong habits and focus on what is happening or has
+            already happened. / N: Intuitive individuals are very imaginative, open-minded
+            and curious. They prefer novelty over stability and focus on hidden meanings
+            and future possibilities.
+
+            T/F:
+
+            T: Thinking individuals focus on objectivity and rationality, prioritizing
+            logic over emotions. They tend to hide their feelings and see efficiency
+            as more important than cooperation. / F: Feeling individuals are sensitive
+            and emotionally expressive. They are more empathic and less competitive
+            than Thinking types, and focus on social harmony and cooperation.
+
+            J/P:
+
+            J: Judging individuals are decisive, thorough and highly organized. They
+            value clarity, predictability and closure, preferring structure and planning
+            to spontaneity. / P: Prospecting individuals are very good at improvising
+            and spotting opportunities. They tend to be flexible, relaxed nonconformists
+            who prefer keeping their options open.
+
+            请记住分析的结果，要输出的分析报告中要使用这个结果
+
+            # 格式
+
+            你需要以用户浏览器语言{{#1732420145745.lang#}}撰写文本
+
+            以下示例内容中“//”表示注释符号，其内容不能出现在输出的内容中
+
+            以下示例内容假设用户的MBTI为XXXX，在实际输出过程中需要改为上面分析的MBTI，样例输出如下：
+
+            **{{name}}的MBTI分析报告**
+
+            {{name}}的MBTI是：**XXXX**
+
+            分析如下：
+
+            - **内向与外向（I/E）**：// 开头写I/E的结论，后面内容结合具体推文或简介的内容进行分析
+
+            - **实感与直觉（S/N）**：// 开头写S/N的结论，后面内容结合具体推文或简介的内容进行分析
+
+            - **思考与情感（T/F）**：// 开头写T/F的结论，后面内容结合具体推文或简介的内容进行分析
+
+            - **判断与感知（J/P）**：// 开头写J/P的结论，后面内容结合具体推文或简介的内容进行分析
+
+            ---
+
+            **和{{name}}有同样MBTI的名人**
+
+            //介绍一个相同MBTI的名人，写一句话的内容。'
+        selected: true
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1732420315223'
+      position:
+        x: 1292
+        y: 282
+      positionAbsolute:
+        x: 1292
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is not
+            id: f240cdbb-10eb-4fe3-8c18-b1a7d95cacf0
+            value: err
+            varType: string
+            variable_selector:
+            - '1732420268481'
+            - result
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 126
+      id: '1732420883675'
+      position:
+        x: 688
+        y: 282
+      positionAbsolute:
+        x: 688
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1732420268481'
+          - result
+          variable: err
+        selected: false
+        title: End
+        type: end
+      height: 90
+      id: '1732420916169'
+      position:
+        x: 988
+        y: 415
+      positionAbsolute:
+        x: 988
+        y: 415
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - '1732421779593'
+          - mbti
+          variable: mbti
+        - value_selector:
+          - '1732421779593'
+          - IE_report
+          variable: IE_report
+        - value_selector:
+          - '1732421779593'
+          - SN_report
+          variable: SN_report
+        - value_selector:
+          - '1732421779593'
+          - TF_report
+          variable: TF_report
+        - value_selector:
+          - '1732421779593'
+          - JP_report
+          variable: JP_report
+        - value_selector:
+          - '1732421779593'
+          - celebrity
+          variable: celebrity
+        - value_selector:
+          - '1732421779593'
+          - celebrity_report
+          variable: celebrity_report
+        selected: false
+        title: End 2
+        type: end
+      height: 246
+      id: '1732421770134'
+      position:
+        x: 1965.77792603724
+        y: 282
+      positionAbsolute:
+        x: 1965.77792603724
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: deepseek
+        parameters:
+        - description: Uer's MBTI
+          name: mbti
+          required: false
+          type: string
+        - description: 用户是内向还是外向（I/E）的详细结论和判断依据，这里你应该输出完整的一段内容而不是一个字符
+          name: IE_report
+          required: false
+          type: string
+        - description: 用户是实感与直觉（S/N）的详细结论和判断依据，这里你应该输出完整的一段内容而不是一个字符
+          name: SN_report
+          required: false
+          type: string
+        - description: 用户是思考与情感（T/F）的详细结论和判断依据，这里你应该输出完整的一段内容而不是一个字符
+          name: TF_report
+          required: false
+          type: string
+        - description: 用户是判断与感知（J/P）的详细结论和判断依据，这里你应该输出完整的一段内容而不是一个字符
+          name: JP_report
+          required: false
+          type: string
+        - description: Celebrity who had the same MBTI with the user
+          name: celebrity
+          required: false
+          type: string
+        - description: detailed report why the user has the same MBTI with the celebrity
+          name: celebrity_report
+          required: false
+          type: string
+        query:
+        - '1732420315223'
+        - text
+        reasoning_mode: prompt
+        selected: false
+        title: Parameter Extractor 2
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 98
+      id: '1732421779593'
+      position:
+        x: 1626.4425753894136
+        y: 282
+      positionAbsolute:
+        x: 1626.4425753894136
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -635.0834141057451
+      y: 25.52879284904708
+      zoom: 0.7926402104460676
