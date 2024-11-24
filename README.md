@@ -2,6 +2,8 @@
 
 A simple web app that generates a Twitter MBTI receipt for a given Twitter ID.
 
+![](./og-img.png)
+
 ## Try Online
 
 [Twi.AM](https://twi.am)
