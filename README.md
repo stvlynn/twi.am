@@ -33,7 +33,7 @@ Set up the following environment variables:
 
 ### Backend
 
-Download DSL file [here](./TwitterReceipt.dsl) and upload to Dify.ai.
+Download DSL file [here](./TwitterReceipt.yml) and upload to Dify.ai.
 
 You should also get an API Key from crawlbase and set it in the DSL. Name it `token` in environment variables.
 
