@@ -46,25 +46,23 @@ export async function getShareUrl(data: MBTIResponse['data']['outputs'], userId:
     return longUrl;
   }
 
-  try {
-    const response = await axios.post(`${shortenerUrl}/api/link/create`, {
-      url: longUrl,
-      slug: userId
-    }, {
-      headers: {
-        'Authorization': `Bearer ${shortenerToken}`,
-        'Content-Type': 'application/json'
-      }
-    });
+  // 构造短链接
+  const shortUrl = `${shortenerUrl}/${userId}`;
 
-    if (response.data?.url) {
-      return response.data.url;
+  // 异步发送创建短链接的请求，但不等待响应
+  axios.post(`${shortenerUrl}/api/link/create`, {
+    url: longUrl,
+    slug: userId
+  }, {
+    headers: {
+      'Authorization': `Bearer ${shortenerToken}`,
+      'Content-Type': 'application/json'
     }
-    return longUrl;
-  } catch (e) {
+  }).catch(e => {
     console.error('Failed to create short url:', e);
-    return longUrl;
-  }
+  });
+
+  return shortUrl;
 }
 
 export function getDataFromUrl(): string | null {
