@@ -24,30 +24,28 @@ const props = defineProps<{
 const show = computed(() => !!props.data?.mbti);
 
 const handleShare = async () => {
-  if (!props.data) return;
-  
-  const shareUrl = getShareUrl(props.data, props.userId);
-  
   try {
+    const shareUrl = await getShareUrl(props.data, props.userId);
+    
     if (navigator.share) {
-      // 移动设备使用原生分享
+      // 使用系统分享菜单
       await navigator.share({
-        title: 'My Twitter MBTI Result',
-        text: `Check out @${props.userId}'s Twitter MBTI personality type: ${props.data.mbti}!`,
+        title: 'Twitter MBTI Receipt',
+        text: `Check out my Twitter MBTI Receipt: ${props.data.mbti}`,
         url: shareUrl
       });
     } else {
-      // 桌面设备复制链接
+      // 复制到剪贴板
       await navigator.clipboard.writeText(shareUrl);
       alert('Share link copied to clipboard!');
     }
   } catch (e) {
     console.error('Failed to share:', e);
-    // 如果分享失败，回退到复制链接
     try {
+      const shareUrl = await getShareUrl(props.data, props.userId);
       await navigator.clipboard.writeText(shareUrl);
       alert('Share link copied to clipboard!');
-    } catch (err) {
+    } catch {
       alert('Failed to copy share link. Please try again.');
     }
   }
