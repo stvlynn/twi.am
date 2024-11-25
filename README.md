@@ -1,6 +1,9 @@
-# Twitter MBTI Receipt
+# Twi.AM - Twitter MBTI Receipt
 
 A simple web app that generates a Twitter MBTI receipt for a given Twitter ID.
+
+> [!NOTE]  
+> **Twi.AM** comes from "Twitter" + "I AM", referring to Twitter analyzer and "I am what". It's made for you to know better of yourself.
 
 ![](./og-img.png)
 
