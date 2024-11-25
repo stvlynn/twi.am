@@ -1,0 +1,27 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/link/:path*",
+      "destination": "https://link.twi.am/api/link/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/link/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://twi.am"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST,PUT,DELETE,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+        }
+      ]
+    }
+  ]
+}
