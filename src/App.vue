@@ -80,8 +80,8 @@ const analyzeMBTI = async (userId: string) => {
         const encoded = encodeData(response.data.data.outputs, userId);
         const longUrl = encoded ? `${baseUrl}?data=${encoded}` : baseUrl;
 
-        // 在开发环境中使用代理
-        const apiUrl = import.meta.env.DEV ? '/api/link/create' : `${shortenerUrl}/api/link/create`;
+        // 始终使用相对路径，让 Vercel 处理转发
+        const apiUrl = '/api/link/create';
 
         axios.post(apiUrl, {
           url: longUrl,
