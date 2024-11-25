@@ -51,7 +51,7 @@ const analyzeMBTI = async (userId: string) => {
         user_id: userId
       },
       response_mode: "blocking",
-      user: "abc-123"
+      user: userId
     }, {
       headers: {
         'Authorization': `Bearer ${apiKey}`,
