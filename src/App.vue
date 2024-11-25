@@ -75,24 +75,28 @@ const analyzeMBTI = async (userId: string) => {
       const appUrl = import.meta.env.VITE_APP_URL || window.location.origin;
       
       if (shortenerUrl && shortenerToken) {
-        // 异步创建短链接，不等待结果
-        import('./utils/share').then(({ encodeData }) => {
-          const baseUrl = `${appUrl}${window.location.pathname}`;
-          const encoded = encodeData(response.data.data.outputs, userId);
-          const longUrl = encoded ? `${baseUrl}?data=${encoded}` : baseUrl;
+        // 移除用户ID中的@符号
+        const cleanUserId = userId.replace('@', '');
+        
+        // 构造分享数据并编码
+        const shareData = {
+          userId: cleanUserId,
+          outputs: response.data.data.outputs
+        };
+        const encodedData = encodeURIComponent(btoa(JSON.stringify(shareData)));
+        const longUrl = `${appUrl}?data=${encodedData}`;
 
-          axios.post(`${shortenerUrl}/api/link/create`, {
-            url: longUrl,
-            slug: userId
-          }, {
-            headers: {
-              'Authorization': `Bearer ${shortenerToken}`,
-              'Content-Type': 'application/json'
-            },
-            timeout: 9000
-          }).catch(e => {
-            console.error('Failed to create short url:', e);
-          });
+        // 创建短链接
+        axios.post(`${shortenerUrl}/api/link/create`, {
+          url: longUrl,
+          slug: cleanUserId
+        }, {
+          headers: {
+            'Authorization': `Bearer ${shortenerToken}`,
+            'Content-Type': 'application/json'
+          }
+        }).catch(e => {
+          console.error('Failed to create short url:', e);
         });
       }
     } else if (response.data?.data?.error) {

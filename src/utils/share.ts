@@ -18,9 +18,13 @@ interface ShortLinkResponse {
 
 export function encodeData(data: MBTIResponse['data']['outputs'], userId: string) {
   if (!data) return '';
-  // 包含用户ID和分析结果
+  
+  // 移除用户ID中的@符号
+  const cleanUserId = userId.replace('@', '');
+  
+  // 构造分享数据
   const shareData: ShareData = {
-    userId,
+    userId: cleanUserId,
     outputs: {
       mbti: data.mbti,
       IE_report: data.IE_report,
@@ -31,7 +35,9 @@ export function encodeData(data: MBTIResponse['data']['outputs'], userId: string
       celebrity_report: data.celebrity_report
     }
   };
-  return btoa(encodeURIComponent(JSON.stringify(shareData)));
+  
+  // 编码数据
+  return encodeURIComponent(btoa(JSON.stringify(shareData)));
 }
 
 export function decodeData(encoded: string): ShareData | null {
@@ -47,9 +53,12 @@ export function decodeData(encoded: string): ShareData | null {
 export async function getShareUrl(data: MBTIResponse['data']['outputs'], userId: string) {
   const shortenerUrl = import.meta.env.VITE_SHORTENER_URL;
   
+  // 移除用户ID中的@符号
+  const cleanUserId = userId.replace('@', '');
+  
   // 直接返回短链接，因为它已经在 Dify 响应后创建了
   if (shortenerUrl) {
-    return `${shortenerUrl}/${userId}`;
+    return `${shortenerUrl}/${cleanUserId}`;
   }
 
   // 如果没有配置短链接服务，返回长链接
