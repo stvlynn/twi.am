@@ -42,8 +42,9 @@ const orderNumber = computed(() => {
 });
 
 const shortUrl = computed(() => {
+  if (!props.data) return '';
   const shortenerUrl = import.meta.env.VITE_SHORTENER_URL;
-  return shortenerUrl ? `${shortenerUrl}/${props.userId}` : '';
+  return shortenerUrl ? `https://${shortenerUrl.replace(/^https?:\/\//, '')}/${props.userId}` : '';
 });
 </script>
 
@@ -128,8 +129,8 @@ const shortUrl = computed(() => {
 
       <!-- Footer -->
       <div class="mt-8 text-center pt-4">
-        <div v-if="shortUrl" class="mb-4 flex justify-center">
-          <QRCode :value="shortUrl" :size="150" level="M" />
+        <div v-if="shortUrl && !loading && !error" class="mb-4 flex justify-center">
+          <QRCode :value="shortUrl" :size="150" level="M" renderAs="svg" />
         </div>
         <p class="text-xs">* * * * * * * * * * * * * * * *</p>
         <p class="text-sm mt-2">SERVED BY: Dify.ai</p>
