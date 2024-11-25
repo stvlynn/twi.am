@@ -6,7 +6,7 @@ import Receipt from './components/Receipt.vue';
 import GoogleAnalytics from './components/GoogleAnalytics.vue';
 import ShareButton from './components/ShareButton.vue';
 import SaveImageButton from './components/SaveImageButton.vue';
-import { getDataFromUrl, decodeData } from './utils/share';
+import { getDataFromUrl, decodeData, encodeData } from './utils/share';
 import type { MBTIResponse, ErrorState } from './types/mbti.ts';
 
 const loading = ref(false);
@@ -68,6 +68,33 @@ const analyzeMBTI = async (userId: string) => {
     if (response.data?.data?.status === 'succeeded' && 
         response.data?.data?.outputs) {
       mbtiData.value = response.data.data.outputs;
+      
+      // Dify 响应成功后立即创建短链接
+      const shortenerUrl = import.meta.env.VITE_SHORTENER_URL;
+      const shortenerToken = import.meta.env.VITE_SHORTENER_TOKEN;
+      const appUrl = import.meta.env.VITE_APP_URL || window.location.origin;
+      
+      if (shortenerUrl && shortenerToken) {
+        // 异步创建短链接，不等待结果
+        import('./utils/share').then(({ encodeData }) => {
+          const baseUrl = `${appUrl}${window.location.pathname}`;
+          const encoded = encodeData(response.data.data.outputs, userId);
+          const longUrl = encoded ? `${baseUrl}?data=${encoded}` : baseUrl;
+
+          axios.post(`${shortenerUrl}/api/link/create`, {
+            url: longUrl,
+            slug: userId
+          }, {
+            headers: {
+              'Authorization': `Bearer ${shortenerToken}`,
+              'Content-Type': 'application/json'
+            },
+            timeout: 9000
+          }).catch(e => {
+            console.error('Failed to create short url:', e);
+          });
+        });
+      }
     } else if (response.data?.data?.error) {
       throw new Error(response.data.data.error);
     } else {
