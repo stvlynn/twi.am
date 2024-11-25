@@ -37,6 +37,10 @@ Download DSL file [here](./TwitterReceipt.dsl) and upload to Dify.ai.
 
 You should also get an API Key from crawlbase and set it in the DSL. Name it `token` in environment variables.
 
+## Donate
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/stvlynn)
+
 ## License
 
 [AGPL-3.0](./LICENSE)

@@ -120,6 +120,9 @@ const analyzeMBTI = async (userId: string) => {
         <a href="https://twitter.com/stv_lynn" target="_blank" rel="noopener noreferrer">
           <img alt="X (formerly Twitter) Follow" src="https://img.shields.io/twitter/follow/stv_lynn">
         </a>
+        <a href="https://www.buymeacoffee.com/stvlynn" target="_blank" rel="noopener noreferrer">
+          <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 20px !important;">
+        </a>
       </div>
     </div>
   </div>
