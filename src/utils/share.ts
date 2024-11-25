@@ -6,6 +6,16 @@ interface ShareData {
   outputs: MBTIResponse['data']['outputs'];
 }
 
+interface ShortLinkResponse {
+  link: {
+    id: string;
+    url: string;
+    slug: string;
+    createdAt: number;
+    updatedAt: number;
+  }
+}
+
 export function encodeData(data: MBTIResponse['data']['outputs'], userId: string) {
   if (!data) return '';
   // 包含用户ID和分析结果
@@ -46,23 +56,35 @@ export async function getShareUrl(data: MBTIResponse['data']['outputs'], userId:
     return longUrl;
   }
 
-  // 构造短链接
-  const shortUrl = `${shortenerUrl}/${userId}`;
+  try {
+    // 发送创建短链接的请求
+    const response = await axios.post<ShortLinkResponse>(
+      `${shortenerUrl}/api/link/create`,
+      {
+        url: longUrl,
+        slug: userId
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${shortenerToken}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 9000 // 设置9秒超时
+      }
+    );
 
-  // 异步发送创建短链接的请求，但不等待响应
-  axios.post(`${shortenerUrl}/api/link/create`, {
-    url: longUrl,
-    slug: userId
-  }, {
-    headers: {
-      'Authorization': `Bearer ${shortenerToken}`,
-      'Content-Type': 'application/json'
+    // 检查响应是否包含有效的link对象
+    if (response.data?.link?.slug) {
+      return `${shortenerUrl}/${response.data.link.slug}`;
     }
-  }).catch(e => {
-    console.error('Failed to create short url:', e);
-  });
 
-  return shortUrl;
+    // 如果响应格式不正确，返回长链接
+    console.error('Invalid short link response:', response.data);
+    return longUrl;
+  } catch (e) {
+    console.error('Failed to create short url:', e);
+    return longUrl;
+  }
 }
 
 export function getDataFromUrl(): string | null {
