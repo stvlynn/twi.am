@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { ErrorState } from '../types/mbti';
+import QRCode from 'qrcode.vue';
 
 const props = defineProps<{
   loading: boolean;
@@ -38,6 +39,11 @@ const currentTime = computed(() => {
 
 const orderNumber = computed(() => {
   return Math.floor(Math.random() * 10000);
+});
+
+const shortUrl = computed(() => {
+  const shortenerUrl = import.meta.env.VITE_SHORTENER_URL;
+  return shortenerUrl ? `${shortenerUrl}/${props.userId}` : '';
 });
 </script>
 
@@ -122,12 +128,15 @@ const orderNumber = computed(() => {
       </div>
 
       <!-- Footer -->
-      <div class="text-center text-sm">
-        <p>* * * * * * * * * * * * * * * *</p>
-        <p class="mt-2">SERVED BY: Dify.ai</p>
-        <p>{{ currentTime }}</p>
-        <p class="mt-4">THANK YOU FOR USING OUR SERVICE</p>
-        <p>* * * * * * * * * * * * * * * *</p>
+      <div class="mt-8 text-center border-t-2 border-black pt-4">
+        <div v-if="shortUrl" class="mb-4 flex justify-center">
+          <QRCode :value="shortUrl" :size="150" level="M" />
+        </div>
+        <p class="text-xs">* * * * * * * * * * * * * * * *</p>
+        <p class="text-sm mt-2">SERVED BY: Dify.ai</p>
+        <p class="text-sm mt-2">{{ currentTime }}</p>
+        <p class="text-sm mt-2">THANK YOU FOR USING OUR SERVICE</p>
+        <p class="text-xs mt-2">* * * * * * * * * * * * * * * *</p>
       </div>
     </template>
   </div>
