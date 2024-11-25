@@ -45,7 +45,8 @@ export function decodeData(encoded: string): ShareData | null {
 }
 
 export async function getShareUrl(data: MBTIResponse['data']['outputs'], userId: string) {
-  const baseUrl = window.location.origin + window.location.pathname;
+  const appUrl = import.meta.env.VITE_APP_URL || window.location.origin;
+  const baseUrl = `${appUrl}${window.location.pathname}`;
   const encoded = encodeData(data, userId);
   const longUrl = encoded ? `${baseUrl}?data=${encoded}` : baseUrl;
 
