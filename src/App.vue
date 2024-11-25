@@ -76,23 +76,23 @@ const analyzeMBTI = async (userId: string) => {
       
       if (shortenerUrl && shortenerToken) {
         // 异步创建短链接，不等待结果
-        import('./utils/share').then(({ encodeData }) => {
-          const baseUrl = `${appUrl}${window.location.pathname}`;
-          const encoded = encodeData(response.data.data.outputs, userId);
-          const longUrl = encoded ? `${baseUrl}?data=${encoded}` : baseUrl;
+        const baseUrl = `${appUrl}${window.location.pathname}`;
+        const encoded = encodeData(response.data.data.outputs, userId);
+        const longUrl = encoded ? `${baseUrl}?data=${encoded}` : baseUrl;
 
-          axios.post(`${shortenerUrl}/api/link/create`, {
-            url: longUrl,
-            slug: userId
-          }, {
-            headers: {
-              'Authorization': `Bearer ${shortenerToken}`,
-              'Content-Type': 'application/json'
-            },
-            timeout: 9000
-          }).catch(e => {
-            console.error('Failed to create short url:', e);
-          });
+        // 在开发环境中使用代理
+        const apiUrl = import.meta.env.DEV ? '/api/link/create' : `${shortenerUrl}/api/link/create`;
+
+        axios.post(apiUrl, {
+          url: longUrl,
+          slug: userId
+        }, {
+          headers: {
+            'Authorization': `Bearer ${shortenerToken}`,
+            'Content-Type': 'application/json'
+          }
+        }).catch(e => {
+          console.error('Failed to create short url:', e);
         });
       }
     } else if (response.data?.data?.error) {
