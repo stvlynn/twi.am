@@ -5,6 +5,7 @@ import UserInput from './components/UserInput.vue';
 import Receipt from './components/Receipt.vue';
 import GoogleAnalytics from './components/GoogleAnalytics.vue';
 import ShareButton from './components/ShareButton.vue';
+import SaveImageButton from './components/SaveImageButton.vue';
 import { getDataFromUrl, decodeData } from './utils/share';
 import type { MBTIResponse, ErrorState } from './types/mbti.ts';
 
@@ -12,6 +13,7 @@ const loading = ref(false);
 const mbtiData = ref<MBTIResponse['data']['outputs']>();
 const currentUserId = ref('');
 const error = ref<ErrorState | null>(null);
+const receiptRef = ref<HTMLElement | null>(null);
 
 onMounted(() => {
   // 检查URL中是否有分享数据
@@ -106,13 +108,28 @@ const analyzeMBTI = async (userId: string) => {
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl dot-matrix text-center mb-8">Twitter MBTI Receipt</h1>
       <UserInput @analyze="analyzeMBTI" :disabled="loading" />
-      <Receipt
-        :loading="loading"
-        :data="mbtiData"
-        :userId="currentUserId"
-        :error="error"
-      />
-      <ShareButton :data="mbtiData" :userId="currentUserId" />
+      
+      <template v-if="mbtiData">
+        <div ref="receiptRef">
+          <Receipt
+            :loading="loading"
+            :data="mbtiData"
+            :userId="currentUserId"
+            :error="error"
+          />
+        </div>
+        <SaveImageButton :targetRef="receiptRef" />
+        <ShareButton :data="mbtiData" :userId="currentUserId" />
+      </template>
+      <template v-else>
+        <Receipt
+          :loading="loading"
+          :data="mbtiData"
+          :userId="currentUserId"
+          :error="error"
+        />
+      </template>
+
       <div class="flex justify-center items-center gap-4 mt-8">
         <a href="https://github.com/stvlynn/twi.am" target="_blank" rel="noopener noreferrer">
           <img alt="GitHub Repo stars" src="https://img.shields.io/github/stars/stvlynn/twi.am?style=flat&logo=github">
