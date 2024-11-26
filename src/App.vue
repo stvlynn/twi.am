@@ -169,7 +169,7 @@ const analyzeMBTI = async (userId: string) => {
         </a>
         <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener noreferrer" class="inline-flex">
           <div class="bg-gray-100 rounded-md p-0.5">
-            <img src="/img/kimi.svg" alt="Kimi AI" style="height: 20px !important;">
+            <img src="/img/moonshot-text.svg" alt="Kimi AI" style="height: 14px !important;">
           </div>
         </a>
       </div>
