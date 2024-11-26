@@ -167,6 +167,11 @@ const analyzeMBTI = async (userId: string) => {
         <a href="https://www.buymeacoffee.com/stvlynn" target="_blank" rel="noopener noreferrer">
           <img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 20px !important;">
         </a>
+        <a href="https://kimi.moonshot.cn/" target="_blank" rel="noopener noreferrer" class="inline-flex">
+          <div class="bg-gray-100 rounded-md p-0.5">
+            <img src="/img/kimi.svg" alt="Kimi AI" style="height: 20px !important;">
+          </div>
+        </a>
       </div>
     </div>
   </div>
