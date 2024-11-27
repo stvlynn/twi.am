@@ -1,11 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const emit = defineEmits<{
   (e: 'analyze', userId: string): void;
 }>();
 
 const userId = ref('');
+
+// 监听userId的变化，自动去除开头的@符号
+watch(userId, (newValue) => {
+  if (newValue.startsWith('@')) {
+    userId.value = newValue.slice(1);
+  }
+}, { immediate: true });
 
 const handleSubmit = () => {
   if (userId.value.trim()) {
