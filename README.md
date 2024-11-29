@@ -44,7 +44,7 @@ You should also get an API Key from crawlbase and set it in the DSL. Name it `to
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/stvlynn)
 
-<iframe src="https://github.com/sponsors/stvlynn/button" title="Sponsor stvlynn" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+<a href="https://github.com/sponsors/stvlynn" ><img src="https://github.com/sponsors/stvlynn/button" title="Sponsor stvlynn" height="32" width="114" style="border: 0; border-radius: 6px;"></a>
 
 ETH: 0xEbf67cd24fa23fde69843cA4119cE946d8c231F5
 
