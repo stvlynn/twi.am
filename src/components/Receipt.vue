@@ -50,7 +50,7 @@ const shortUrl = computed(() => {
 
 <template>
   <div v-if="loading || data || error" 
-       class="bg-white p-8 max-w-2xl mx-auto font-mono shadow-lg transform transition-all duration-500"
+       class="receipt-container bg-white p-8 max-w-2xl mx-auto font-mono shadow-lg transform transition-all duration-500"
        :class="{'animate-pulse': loading}">
     <!-- Receipt Header -->
     <div class="text-center mb-8">
@@ -159,5 +159,35 @@ const shortUrl = computed(() => {
 
 .dot-matrix {
   font-family: 'DotMatrix', monospace;
+}
+
+.receipt-container {
+  position: relative;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.receipt-container::before,
+.receipt-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background-image: linear-gradient(45deg, transparent 33.333%, #ffffff 33.333%, #ffffff 66.667%, transparent 66.667%),
+                    linear-gradient(-45deg, transparent 33.333%, #ffffff 33.333%, #ffffff 66.667%, transparent 66.667%);
+  background-size: 20px 40px;
+  background-position: 0 0;
+}
+
+.receipt-container::before {
+  top: -20px;
+  background-color: rgb(243 244 246);
+}
+
+.receipt-container::after {
+  bottom: -20px;
+  transform: rotate(180deg);
+  background-color: rgb(243 244 246);
 }
 </style>
