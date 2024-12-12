@@ -41,6 +41,14 @@ const handleSubmit = () => {
       >
         ANALYZE MBTI
       </button>
+      <a
+        href="https://twi.am"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-full bg-white text-black border-2 border-black py-2 rounded-lg font-mono hover:bg-gray-100 transition-colors text-center"
+      >
+        MORE ANALYSIS
+      </a>
     </div>
   </div>
 </template>
