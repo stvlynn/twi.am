@@ -9,7 +9,7 @@ A simple web app that generates a Twitter MBTI receipt for a given Twitter ID.
 
 ## Try Online
 
-[Twi.AM](https://mbti.twi.am)
+[Twitter MBTI Receipt - Twi.am](https://mbti.twi.am)
 
 Enter your Twitter ID (Not Your Username) and click "ANALYZE MBTI" to generate a receipt.
 
@@ -54,6 +54,12 @@ You should also get an API Key from crawlbase and set it in the DSL. Name it `to
 
 
 ETH: 0xEbf67cd24fa23fde69843cA4119cE946d8c231F5
+
+## Related Projects
+
+- [TwitterInstantPortrait](https://github.com/stvlynn/TwitterInstantPortrait)
+
+- [TwitterLottery](https://github.com/stvlynn/TwitterLottery)
 
 ## Star History
 
