@@ -1,4 +1,4 @@
-# Twi.AM - Twitter MBTI Receipt
+# Twitter MBTI Receipt - Twi.am
 
 A simple web app that generates a Twitter MBTI receipt for a given Twitter ID.
 
@@ -9,11 +9,17 @@ A simple web app that generates a Twitter MBTI receipt for a given Twitter ID.
 
 ## Try Online
 
-[Twi.AM](https://twi.am)
+[Twi.AM](https://mbti.twi.am)
 
 Enter your Twitter ID (Not Your Username) and click "ANALYZE MBTI" to generate a receipt.
 
 Please wait for approximately 60 seconds for the analysis to complete.
+
+## Read More
+
+Dify Blog: [Building a Twitter MBTI Analyzer: A No-Code Journey with Dify and Windsurf](https://dify.ai/blog/building-a-twitter-mbti-analyzer-a-no-code-journey-with-dify-and-windsurf)
+
+This article explores how to build an AI-powered product, “Twitter MBTI Receipt,” using Dify and Windsurf to analyze Twitter profiles and generate MBTI personality reports.
 
 ## How It Works
 
