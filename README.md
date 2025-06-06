@@ -71,6 +71,8 @@ ETH: 0xEbf67cd24fa23fde69843cA4119cE946d8c231F5
 
 ## Thanks For Sponsoring
 
+[![Powered by DartNode](https://dartnode.com/branding/DN-Open-Source-sm.png)](https://dartnode.com "Powered by DartNode - Free VPS for Open Source")
+
 - [![](./img/Kimi.svg)](https://kimi.moonshot.cn/)
 
 - [Minghan Zhang](https://github.com/zmh-program)
